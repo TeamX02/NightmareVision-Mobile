@@ -229,11 +229,7 @@ class Paths
 		}
 		#end
 
-		#if mobile
-		return 'videos:assets/videos/$key.$VIDEO_EXT';	
-		#else
-		return 'assets/videos/$key.$VIDEO_EXT';
-		#end
+		return SUtil.getPath() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -314,12 +310,12 @@ class Paths
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = getLibraryPathForce(key, currentLevel);
+				levelPath = SUtil.getPath() + getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = getLibraryPathForce(key, 'shared');
+			levelPath = SUtil.getPath() + getLibraryPathForce(key, 'shared');
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);
 		}
@@ -335,7 +331,7 @@ class Paths
 			return file;
 		}
 		#end
-		return 'assets/fonts/$key';
+		return SUtil.getPath() + 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -486,7 +482,7 @@ class Paths
 		// I hate this so god damn much
 		var gottenPath:String = '$key.$SOUND_EXT';
 		if(path != null) gottenPath = '$path/$gottenPath';
-		gottenPath = getPath(gottenPath, SOUND, library);
+		gottenPath = SUtil.getPath() + getPath(gottenPath, SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
@@ -506,7 +502,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return Sys.getCwd() + 'content/' + key;
+		return SUtil.getPath() + 'content/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -565,7 +561,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return Sys.getCwd() + 'content/' + key;
+		return SUtil.getPath() + 'content/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
@@ -575,7 +571,7 @@ class Paths
 
 	static public function pushGlobalMods(){ // prob a better way to do this but idc
 		globalMods = [];
-		if (FileSystem.exists("modsList.txt"))
+		if (FileSystem.exists(SUtil.getPath() + "modsList.txt"))
 		{
 			var list:Array<String> = CoolUtil.listFromString(File.getContent("modsList.txt"));
 			for (i in list)
