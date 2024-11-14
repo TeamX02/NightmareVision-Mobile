@@ -45,7 +45,8 @@ class Main extends Sprite
 
 		// Credits to MAJigsaw77 (he's the og author for this code)
 		#if android
-		Sys.setCwd(Path.addTrailingSlash(StorageUtil.getStorageDirectory()));
+		Sys.setCwd(Path.addTrailingSlash(SUtil.getPath()));
+		SUtil.gameCrashCheck();
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
@@ -86,7 +87,7 @@ class Main extends Sprite
 	private function setupGame():Void
 	{
 		#if android
-		StorageUtil.requestPermissions();
+		SUtil.doTheCheck();
 		#end
 
 		var stageWidth:Int = Lib.current.stage.stageWidth;
