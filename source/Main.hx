@@ -45,7 +45,7 @@ class Main extends Sprite
 
 		// Credits to MAJigsaw77 (he's the og author for this code)
 		#if android
-		//Sys.setCwd(Path.addTrailingSlash(SUtil.getPath()));
+		Sys.setCwd(Path.addTrailingSlash(SUtil.getPath()));
 		SUtil.gameCrashCheck();
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
